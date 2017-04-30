@@ -27,7 +27,7 @@
 		    </thead>
 		    <tbody>
 			    @foreach($products as $product)
-			    	@if($product->id != Auth::product()->id)
+			    	@if($product->id != Auth::id())
 			      	<tr>
 			      		<th style="width: 20%;vertical-align: middle;">{{$product->id}}</th>
 				        <th style="width: 20%;vertical-align: middle;">{{$product->name}}</th>
