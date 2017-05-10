@@ -16,6 +16,13 @@ class Product extends Model
         'title', 'buyingPrice', 'sellingPrice', 'category_id', 'available_in_stock'
     ];
 
+    /**
+     * Always fetch products with its' categories
+     * 
+     * @var array
+     */
+    protected $with = ['category']; 
+
     //RELATION BETWEEN PRODUCT AND ORDER
     public function order() {
     	return $this->belongsTo(Order::class);
