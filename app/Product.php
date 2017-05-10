@@ -13,7 +13,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'buyingPrice', 'sellingPrice', 'category_id'
+        'title', 'buyingPrice', 'sellingPrice', 'category_id', 'available_in_stock'
     ];
 
     //RELATION BETWEEN PRODUCT AND ORDER

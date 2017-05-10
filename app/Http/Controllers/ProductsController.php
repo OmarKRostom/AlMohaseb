@@ -2,8 +2,9 @@
 
 namespace AlMohaseb\Http\Controllers;
 
-use Illuminate\Http\Request;
 use AlMohaseb\Product;
+use AlMohaseb\Category;
+use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -25,7 +26,9 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        $product = new Product;
+        $categories = Category::pluck('title', 'id');
+        return view('admin.products.create')->with(compact('product', 'categories'));
     }
 
     /**
@@ -33,9 +36,28 @@ class ProductsController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title'              => ['required', 'min:3', 'max:255'],
+            'buyingPrice'        => ['required', 'numeric', 'min:0'],
+            'sellingPrice'       => ['required', 'numeric', 'min:0'],
+            'category_id'        => ['required', 'exists:categories,id'],
+            'available_in_stock' => ['required', 'numeric', 'min:0'],
+        ], [],
+        [
+            'title'              => 'Title',
+            'buyingPrice'        => 'Buying Price',
+            'sellingPrice'       => 'Selling Price',
+            'category_id'        => 'Category',
+            'available_in_stock' => 'Availble In Stock',
+        ]);
+
+        Product::create($request->all());
+
+        flash()->overlay('Product added successfully !', 'Success', 'success');
+        
+        return redirect(route('admin.products.index'));
     }
 
     /**
