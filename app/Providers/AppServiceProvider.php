@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
             $this->app->alias('Debugbar', \Barryvdh\Debugbar\Facade::class);
+            
+            $this->app->register(\PrettyRoutes\ServiceProvider::class);
         }
     }
 }
