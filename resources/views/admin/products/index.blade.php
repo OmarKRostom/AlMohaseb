@@ -22,29 +22,37 @@
 		      	<th>Name</th>
 		        <th>Buying Price</th>
 		        <th>Selling Price</th>
+		        <th>Category</th>
+		        <th>Availble In Stock</th>
 		        <th>Actions</th>
 		      </tr>
 		    </thead>
 		    <tbody>
-			    @foreach($products as $product)
-			    	@if($product->id != Auth::id())
-			      	<tr>
-			      		<th style="width: 20%;vertical-align: middle;">{{$product->id}}</th>
-				        <th style="width: 20%;vertical-align: middle;">{{$product->name}}</th>
-				        <th style="width: 20%;vertical-align: middle;">{{$product->productname}}</th>
-				        <th style="width: 20%;vertical-align: middle;">{{$product->type}}</th>
-				        <th style="width: 20%;vertical-align: middle;">
+			    @forelse($products as $product)
+			    	<tr>
+			      		<td style="width: 10%;vertical-align: middle;">{{ $product->id }}</td>
+				        <td style="width: 10%;vertical-align: middle;">{{ $product->title }}</td>
+				        <td style="width: 10%;vertical-align: middle;">{{ $product->buyingPrice }}</td>
+				        <td style="width: 10%;vertical-align: middle;">{{ $product->sellingPrice }}</td>
+				        <td style="width: 10%;vertical-align: middle;">{{ $product->category->title }}</td>
+				        <td style="width: 10%;vertical-align: middle;">{{ $product->available_in_stock }}</td>
+				        <td style="width: 10%;vertical-align: middle;">
 				        	<div class="btn-group">
 							 
-							  {{Form::open(["route" => ["admin.products.destroy", $product->id], "method" => "DELETE"])}}
-							    <a type="button" href="{{route("admin.products.show", $product->id)}}" class="btn btn-warning">Edit</a>
-							  	<button type="submit" class="btn btn-danger">Delete</button>
-							  {{Form::close()}}
-							</div>
-				        </th>
+										{{Form::open(["route" => ["admin.products.destroy", $product->id], "method" => "DELETE"])}}
+											<a type="button" href="{{route("admin.products.show", $product->id)}}" class="btn btn-sm btn-warning">Edit</a>
+											<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+										{{Form::close()}}
+									</div>
+				       </td>
 			      </tr>
-			      @endif
-			    @endforeach
+			    @empty
+			    	<tr>
+			    		<td colspan="7">
+			    			<h3 class="text-center text-danger">You have no products right now</h3>
+			    		</td>
+			    	</tr>
+			    @endforelse
 		    </tbody>
 		  </table>
 		  {{$products->links()}}
