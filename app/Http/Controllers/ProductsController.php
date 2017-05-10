@@ -5,6 +5,7 @@ namespace AlMohaseb\Http\Controllers;
 use AlMohaseb\Product;
 use AlMohaseb\Category;
 use Illuminate\Http\Request;
+use AlMohaseb\Http\Requests\SaveProductRequest;
 
 class ProductsController extends Controller
 {
@@ -36,27 +37,12 @@ class ProductsController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(SaveProductRequest $request)
     {
-        $this->validate($request, [
-            'title'              => ['required', 'min:3', 'max:255'],
-            'buyingPrice'        => ['required', 'numeric', 'min:0'],
-            'sellingPrice'       => ['required', 'numeric', 'min:0'],
-            'category_id'        => ['required', 'exists:categories,id'],
-            'available_in_stock' => ['required', 'numeric', 'min:0'],
-        ], [],
-        [
-            'title'              => 'Title',
-            'buyingPrice'        => 'Buying Price',
-            'sellingPrice'       => 'Selling Price',
-            'category_id'        => 'Category',
-            'available_in_stock' => 'Availble In Stock',
-        ]);
-
         Product::create($request->all());
 
         flash()->overlay('Product added successfully !', 'Success', 'success');
-        
+
         return redirect(route('admin.products.index'));
     }
 
