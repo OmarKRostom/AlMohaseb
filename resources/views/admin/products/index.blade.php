@@ -40,7 +40,7 @@
 				        	<div class="btn-group">
 							 
 										{{Form::open(["route" => ["admin.products.destroy", $product->id], "method" => "DELETE"])}}
-											<a type="button" href="{{route("admin.products.show", $product->id)}}" class="btn btn-sm btn-warning">Edit</a>
+											<a type="button" href="{{route("admin.products.edit", $product->id)}}" class="btn btn-sm btn-warning">Edit</a>
 											<button type="submit" class="btn btn-sm btn-danger">Delete</button>
 										{{Form::close()}}
 									</div>

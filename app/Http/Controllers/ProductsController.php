@@ -54,29 +54,35 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        // 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  AlMohaseb\Product  $product
      * @return Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::pluck('title', 'id');
+        return view('admin.products.edit')->with(compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  AlMohaseb\Http\Requests\SaveProductRequest  $request
+     * @param  AlMohaseb\Product  $product
      * @return Response
      */
-    public function update($id)
+    public function update(SaveProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->all());
+
+        flash()->overlay('Product updated successfully !', 'Success', 'success');
+
+        return redirect(route('admin.products.edit', $product->id));
     }
 
     /**
