@@ -17,7 +17,22 @@
                 <a href="{{route("admin.agents.index")}}"><i class="fa fa-user-circle fa-fw"></i> Agents</a>
             </li>
             <li>
-                <a href="{{route("admin.orders.index")}}"><i class="fa fa-truck fa-fw"></i> Orders</a>
+                <a href="#" class="{{ strpos(request()->url(), 'orders') ? 'active' : '' }}">
+                    <i class="fa fa-truck fa-fw"></i>
+                    Orders
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li class="{{ request()->url() === route('admin.orders.selling') ? 'active' : '' }}">
+                        <a href="{{ route('admin.orders.selling') }}">
+                        <i class="fa fa-arrow-circle-up fa-fw"></i> Selling</a>
+                    </li>
+                    <li class="{{ request()->url() === route('admin.orders.selling') ? 'active' : '' }}">
+                        <a href="{{ route('admin.orders.purchasing') }}">
+                        <i class="fa fa-arrow-circle-down fa-fw"></i> Purchasing</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
             </li>
             <li class="{{ request()->url() === route('admin.options.index') ? 'active' : '' }}">
                 <a href="{{route("admin.options.index")}}"><i class="fa fa-list fa-fw"></i> Options</a>
