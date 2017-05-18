@@ -16,7 +16,7 @@ class Agent extends Model
     ];
 
     //RELATION BETWEEN AGENT AND ORDER
-    public function order() {
-    	return $this->hasMany(Order::class);
+    public function orders() {
+    	return $this->morphMany(Order::class, 'responsible');
     }
 }

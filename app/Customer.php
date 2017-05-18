@@ -17,7 +17,7 @@ class Customer extends Model
     ];
 
     //RELATION BETWEEN CUSTOMER AND ORDER
-    public function order() {
-    	return $this->hasMany(Order::class);
+    public function orders() {
+    	return $this->morphMany(Order::class, 'responsible');
     }
 }

@@ -25,7 +25,7 @@ class Product extends Model
 
     //RELATION BETWEEN PRODUCT AND ORDER
     public function order() {
-    	return $this->belongsTo(Order::class);
+    	return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
 
     //RELATION BETWEEN PRODUCT AND OPTIONS
