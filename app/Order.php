@@ -23,7 +23,8 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('quantity');
+        return $this->belongsToMany(Product::class)->withPivot('quantity', 'price');
+    }
     }
 
     public function scopeSelling($query)
@@ -41,9 +42,7 @@ class Order extends Model
         $price = 0;
 
         foreach ($this->products as $product) {
-            for($i = 0; $i < $product->pivot->quantity; $i++) {
-                $price += ($this->responsible_type === Customer::class) ? $product->sellingPrice : $product->buyingPrice;
-            }
+            $price += $product->pivot->price * $product->pivot->quantity;
         }
 
         return $price;
