@@ -29,13 +29,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
       flash()->overlay('User added successfully !', 'Success', 'success');
     return view("admin.dashboard");
   });
+    
+   	Route::get('/logout', 'HomeController@logout')->name("logout");
 });
 
 Route::group(['middleware' => 'guest'], function() {
-   	//LOGIN URL
-   	Route::get('/', 'HomeController@index')->name("login");
-   	Route::post('/login', 'HomeController@login');
-   	Route::get('/logout', 'HomeController@logout')->name("logout");
+    //LOGIN URL
+    Route::get('/', 'HomeController@index')->name("login");
+    Route::post('/login', 'HomeController@login');
 });
 
 Route::get('/flash', function() {
