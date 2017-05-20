@@ -11,6 +11,8 @@ class Order extends Model
 {
     protected $with = ['products'];
 
+    protected $appends = ['type'];
+
     public function responsible()
     {
         return $this->morphTo();
@@ -25,6 +27,10 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class)->withPivot('quantity', 'price');
     }
+
+    public function getTypeAttribute()
+    {
+        return ($this->responsible_type === Customer::class) ? 'selling' : 'purchasing';
     }
 
     public function scopeSelling($query)

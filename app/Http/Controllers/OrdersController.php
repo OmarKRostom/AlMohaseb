@@ -6,7 +6,20 @@ use AlMohaseb\Order;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
-{
+{   
+    
+    /**
+     * Show the specified resource
+     * 
+     * @param  Order  $order 
+     * @return Response        
+     */
+    public function show(Order $order)
+    {
+        $order->load('responsible', 'creator');
+        return view('admin.orders.show', compact('order'));
+    }
+
     public function selling()
     {
         $orders = Order::with('creator')->selling()->paginate(15);
