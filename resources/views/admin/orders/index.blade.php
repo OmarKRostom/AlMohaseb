@@ -8,15 +8,7 @@
                 "description" => "List Orders"
             ])
     </div>
-    @if ($errors->any())
-        <div class="alert alert-danger col-xs-12">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="row">
         <div class="col-xs-12" style="margin-bottom: 25px;">
             <a href="{{route("admin.orders.create")}}" class="btn btn-success col-xs-12"><i class="fa fa-plus"></i>Add Order</a>
