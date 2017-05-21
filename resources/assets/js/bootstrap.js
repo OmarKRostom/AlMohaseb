@@ -33,6 +33,8 @@ window.axios.defaults.headers.common = {
 };
 
 require('sweetalert');
+require('metismenu');
+require('../../../node_modules/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
