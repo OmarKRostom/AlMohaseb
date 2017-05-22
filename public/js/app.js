@@ -11530,7 +11530,7 @@ __webpack_require__(33);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(44));
+Vue.component('create-order', __webpack_require__(44));
 
 var app = new Vue({
   el: '#page-wrapper'
@@ -12399,10 +12399,152 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    props: ['responsibles', 'type', 'products', 'createOrderUrl', 'redirectTo'],
+
+    data: function data() {
+        return {
+            responsible_id: null,
+            allProducts: this.products,
+            selectedProducts: [{
+                productId: null,
+                quantity: null
+            }],
+            errors: []
+        };
+    },
+
+
+    computed: {
+        responsible: function responsible() {
+            return this.type === 'selling' ? 'Customer' : 'Agent';
+        }
+    },
+
+    methods: {
+        addProduct: function addProduct() {
+            this.selectedProducts.push({
+                productId: null,
+                quantity: null
+            });
+        },
+        removeSelectedProduct: function removeSelectedProduct(indx) {
+            this.selectedProducts.splice(indx, 1);
+        },
+        createOrder: function createOrder() {
+            var _this = this;
+
+            this.validateRequest();
+
+            if (this.errors.length > 0) {
+                return;
+            }
+
+            axios.post(this.createOrderUrl, {
+                type: this.type,
+                responsible_id: this.responsible_id,
+                selected_products: this.selectedProducts
+            }).then(function (res) {
+                swal({
+                    title: 'Success',
+                    text: 'Order created successfully',
+                    type: 'success'
+                }, function () {
+                    return window.location = _this.redirectTo;
+                });
+            }).catch(function (e) {
+                _this.errors = [];
+
+                Object.keys(e.response.data).map(function (key) {
+                    e.response.data[key].map(function (err) {
+                        _this.errors.push(err);
+                    });
+                });
+            });
+
+            console.info('saving', this.selectedProducts, this.responsible_id);
+        },
+        validateRequest: function validateRequest() {
+            var _this2 = this;
+
+            this.errors = [];
+
+            var validProducts = {};
+
+            if (!this.responsible_id) {
+                this.errors.push(this.responsible + ' is not valid.');
+            }
+
+            if (this.selectedProducts.length === 0) {
+                this.errors.push('You must add at least one product.');
+            }
+
+            this.selectedProducts.map(function (product, i) {
+                if (!product.productId || !product.quantity || parseInt(product.quantity) <= 0) {
+                    _this2.errors.push('Product ' + (i + 1) + ' is invalid.');
+                } else if (validProducts[product.productId]) {
+                    _this2.errors.push('Product ' + (i + 1) + ' already added.');
+                } else {
+                    validProducts[product.productId] = true;
+                }
+            });
+        }
     }
 });
 
@@ -33363,9 +33505,9 @@ var Component = __webpack_require__(45)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/ramy/work/AlMohaseb/resources/assets/js/components/Example.vue"
+Component.options.__file = "/home/ramy/work/AlMohaseb/resources/assets/js/components/CreateOrder.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] CreateOrder.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -33374,9 +33516,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8946dab0", Component.options)
+    hotAPI.createRecord("data-v-68bde420", Component.options)
   } else {
-    hotAPI.reload("data-v-8946dab0", Component.options)
+    hotAPI.reload("data-v-68bde420", Component.options)
   }
 })()}
 
@@ -33445,27 +33587,159 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n                    I'm an example component!\n                ")])])])])])
-}]}
+  return _c('div', [(_vm.errors.length > 0) ? _c('div', {
+    staticClass: "alert alert-danger"
+  }, [_c('ul', _vm._l((_vm.errors), function(err) {
+    return _c('li', [_vm._v(_vm._s(err))])
+  }))]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "responsible_id"
+    }
+  }, [_vm._v(_vm._s(_vm.responsible))]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.responsible_id),
+      expression: "responsible_id"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "id": "responsible_id",
+      "name": "responsible_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.responsible_id = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, _vm._l((_vm.responsibles), function(responsible, id) {
+    return _c('option', {
+      domProps: {
+        "value": id
+      }
+    }, [_vm._v(_vm._s(responsible))])
+  }))]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-sm btn-info",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.addProduct
+    }
+  }, [_vm._v("\n            Add Product "), _c('i', {
+    staticClass: "fa fa-plus"
+  })]), _vm._v(" "), _c('br'), _c('br'), _vm._v(" "), _vm._l((_vm.selectedProducts), function(selectedProduct, index) {
+    return _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-xs-12"
+    }, [_c('div', {
+      staticClass: "form-inline"
+    }, [_c('legend', [_vm._v("\n                        Product #" + _vm._s(index + 1) + "\n                    ")]), _vm._v(" "), _c('div', {
+      staticClass: "form-group"
+    }, [_c('label', {
+      attrs: {
+        "for": 'products' + index
+      }
+    }, [_vm._v("Select Product")]), _vm._v(" "), _c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (selectedProduct.productId),
+        expression: "selectedProduct.productId"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        "id": 'products' + index
+      },
+      on: {
+        "change": function($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+            return o.selected
+          }).map(function(o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val
+          });
+          selectedProduct.productId = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+        }
+      }
+    }, _vm._l((_vm.allProducts), function(product, id) {
+      return _c('option', {
+        domProps: {
+          "value": id
+        }
+      }, [_vm._v(_vm._s(product))])
+    }))]), _vm._v("\n\n                        \n\n                    "), _c('div', {
+      staticClass: "form-group"
+    }, [_c('label', {
+      attrs: {
+        "for": 'quantity' + index
+      }
+    }, [_vm._v("Quantity")]), _vm._v(" "), _c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (selectedProduct.quantity),
+        expression: "selectedProduct.quantity"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        "type": "number",
+        "id": 'quantity' + index,
+        "placeholder": "quantity",
+        "name": "quantity"
+      },
+      domProps: {
+        "value": (selectedProduct.quantity)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          selectedProduct.quantity = $event.target.value
+        },
+        "blur": function($event) {
+          _vm.$forceUpdate()
+        }
+      }
+    })]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-danger",
+      attrs: {
+        "type": "button",
+        "disabled": _vm.selectedProducts.length === 1
+      },
+      on: {
+        "click": function($event) {
+          _vm.removeSelectedProduct(index)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-trash"
+    })])]), _vm._v(" "), _c('br')])])
+  })], 2), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary btn-block",
+    on: {
+      "click": _vm.createOrder
+    }
+  }, [_vm._v("\n        Save "), _c('i', {
+    staticClass: "fa fa-check"
+  })])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-8946dab0", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-68bde420", module.exports)
   }
 }
 

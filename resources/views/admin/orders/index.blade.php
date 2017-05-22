@@ -11,7 +11,11 @@
 
     <div class="row">
         <div class="col-xs-12" style="margin-bottom: 25px;">
-            <a href="{{route("admin.orders.create")}}" class="btn btn-success col-xs-12"><i class="fa fa-plus"></i>Add Order</a>
+            <a
+                href="{{ route("admin.orders.create", compact('type')) }}"
+                class="btn btn-success col-xs-12">
+                    <i class="fa fa-plus"></i> Add {{ ucwords($type) }} Order
+            </a>
         </div>
     </div>
     <div class="row">

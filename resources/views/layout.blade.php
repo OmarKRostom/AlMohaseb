@@ -13,7 +13,7 @@
 
     <script type="text/javascript">
         window.AlMohaseb = {
-            csrf: '{{ csrf_token() }}',
+            csrfToken: '{{ csrf_token() }}',
             isLogged: {{ auth()->user() ? 'true' : 'false' }}
           };
     </script>
