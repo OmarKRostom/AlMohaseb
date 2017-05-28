@@ -2,8 +2,9 @@
 
 namespace AlMohaseb;
 
-use Illuminate\Database\Eloquent\Model;
 use AlMohaseb\Order;
+use AlMohaseb\Payment;
+use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
@@ -19,5 +20,10 @@ class Customer extends Model
     //RELATION BETWEEN CUSTOMER AND ORDER
     public function orders() {
     	return $this->morphMany(Order::class, 'responsible');
+    }
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'receivable');
     }
 }

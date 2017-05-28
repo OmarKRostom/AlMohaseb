@@ -19,6 +19,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::get('orders/selling', 'OrdersController@selling')->name('admin.orders.selling');
     Route::get('orders/purchasing', 'OrdersController@purchasing')->name('admin.orders.purchasing');
     Route::resource('orders', 'OrdersController', ['as' => 'admin', 'except' => 'index']);
+
+    Route::get('payments/customers', 'PaymentsController@customers')->name('admin.payments.customers');
+    Route::get('payments/agents', 'PaymentsController@agents')->name('admin.payments.agents');
+    Route::resource('payments', 'PaymentsController', ['as' => 'admin', 'except' => 'index']);
     
     
     Route::resource('agents', 'AgentsController', ['as' => 'admin']);

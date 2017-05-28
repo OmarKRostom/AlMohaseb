@@ -19,4 +19,9 @@ class Agent extends Model
     public function orders() {
     	return $this->morphMany(Order::class, 'responsible');
     }
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class, 'receivable');
+    }
 }

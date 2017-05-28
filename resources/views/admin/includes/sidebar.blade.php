@@ -34,6 +34,24 @@
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
+            <li>
+                <a href="#" class="{{ strpos(request()->url(), 'payments') ? 'active' : '' }}">
+                    <i class="fa fa-money fa-fw"></i>
+                    Payments
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level">
+                    <li class="{{ request()->url() === route('admin.payments.customers') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payments.customers') }}">
+                        <i class="fa fa-male fa-fw"></i> Customers</a>
+                    </li>
+                    <li class="{{ request()->url() === route('admin.payments.agents') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payments.agents') }}">
+                        <i class="fa fa-user-circle fa-fw"></i> Agents</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
             <li class="{{ request()->url() === route('admin.options.index') ? 'active' : '' }}">
                 <a href="{{route("admin.options.index")}}"><i class="fa fa-list fa-fw"></i> Options</a>
             </li>
