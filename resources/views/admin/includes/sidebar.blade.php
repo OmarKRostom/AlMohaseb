@@ -25,11 +25,11 @@
                 <ul class="nav nav-second-level">
                     <li class="{{ request()->url() === route('admin.orders.selling') ? 'active' : '' }}">
                         <a href="{{ route('admin.orders.selling') }}">
-                        <i class="fa fa-arrow-circle-up fa-fw"></i> Selling</a>
+                        <i class="fa fa-arrow-circle-left fa-fw"></i> Selling</a>
                     </li>
-                    <li class="{{ request()->url() === route('admin.orders.selling') ? 'active' : '' }}">
+                    <li class="{{ request()->url() === route('admin.orders.purchasing') ? 'active' : '' }}">
                         <a href="{{ route('admin.orders.purchasing') }}">
-                        <i class="fa fa-arrow-circle-down fa-fw"></i> Purchasing</a>
+                        <i class="fa fa-arrow-circle-right fa-fw"></i> Purchasing</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
