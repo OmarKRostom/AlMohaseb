@@ -9,3 +9,6 @@ Homestead.json
 Homestead.yaml
 .env
 mix-manifest.json
+public/css/all.css
+public/js/app.js
+storage/debugbar/.gitignore
