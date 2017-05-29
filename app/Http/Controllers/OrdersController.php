@@ -27,7 +27,7 @@ class OrdersController extends Controller
 
         $order = new Order;
 
-        $order->id = DB::table($order->getTable())->select('id')->orderBy('id', 'desc')->first()->id + 1;
+        $order->id = (DB::table($order->getTable())->select('id')->orderBy('id', 'desc')->first()->id ?? 0) + 1;
 
         if ($type === 'selling') {
             $responsibles = Customer::pluck('name', 'id');
